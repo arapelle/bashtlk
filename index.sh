@@ -2,6 +2,7 @@
 
 files="
 core.sh
+echofmt.sh
 trace.sh
 command.sh
 cmake_test_helpers.sh
@@ -16,3 +17,13 @@ for file in $files
 do
 	source ${this_script_dir}/$file
 done
+
+# function ftest
+# {
+# 	trace_function_start
+# 	command echo message
+# 	trace_function_end
+# }
+# trace_script_start
+# ftest
+# trace_script_end

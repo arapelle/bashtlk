@@ -6,7 +6,7 @@ function trace_script_start
 	file=$(readlink -e "$file")
 	echofmt "$TRACE_SCRIPT_FORMAT" "[${file}: START (`date`)]"
 }
-export TRACE_SCRIPT_FORMAT="1"
+export TRACE_SCRIPT_FORMAT="{bold}"
 export -f trace_script_start
 
 function trace_script_end
@@ -32,7 +32,7 @@ function trace_function_start
 {
 	echofmt "$TRACE_FUNCTION_FORMAT" "# ${FUNCNAME[1]}: START (`date`)"
 }
-export TRACE_FUNCTION_FORMAT="1"
+export TRACE_FUNCTION_FORMAT="{bold}"
 export -f trace_function_start
 
 function trace_function_end

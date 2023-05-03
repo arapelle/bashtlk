@@ -58,13 +58,6 @@ function tocsin
 }
 export -f tocsin
 
-function echofmt
-{
-	local format_str=$1
-	shift
-	echo -e "\e[${format_str}m$*\e[0m"
-}
-
 function cpu_core_count
 {
 	count=`lscpu | grep "Core.* per socket" | cut -d':' -f2`
