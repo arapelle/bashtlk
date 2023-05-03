@@ -5,6 +5,7 @@ core.sh
 echofmt.sh
 trace.sh
 command.sh
+path.sh
 cmake_test_helpers.sh
 pass.sh
 git.sh
