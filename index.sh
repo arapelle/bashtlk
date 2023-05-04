@@ -26,5 +26,17 @@ done
 # 	trace_function_end
 # }
 # trace_script_start
+# if env_is_mingw
+# then
+# 	echo "MINGW"
+# fi
+# if env_is_msys
+# then
+# 	echo "MSYS"
+# fi
+# if env_is_windows
+# then
+# 	echo "WINDOWS"
+# fi
 # ftest
 # trace_script_end

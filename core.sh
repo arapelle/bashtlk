@@ -1,5 +1,25 @@
 #!/bin/bash
 
+function env_is_mingw
+{
+	[[ -n "${MINGW_CHOST}" ]]
+}
+
+function env_is_msys
+{
+	[[ "${OSTYPE}" == "msys" ]]
+}
+
+function env_is_ubuntu
+{
+	[[ "${PLATFORM}" == "ubuntu" ]]
+}
+
+function env_is_windows
+{
+	[[ $WINDIR =~ windows ]]
+}
+
 function script_dir
 {
 	# https://stackoverflow.com/questions/59895/how-do-i-get-the-directory-where-a-bash-script-is-located-from-within-the-script
