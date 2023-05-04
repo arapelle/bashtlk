@@ -1,3 +1,3 @@
 ## bashtlk
 
-Version: <!--PROJECT_VERSION-->0.1<!--/PROJECT_VERSION-->
+Version: <!--bashtlk-version-->0.1<!--/bashtlk-version-->
