@@ -67,6 +67,18 @@ EOF
     fi
 }
 
+function ssh_cclip_pass_key()
+{
+    key_file=$1
+    if [[ -f "$key_file" ]]
+    then
+        local key_file_name="${key_file##*/}"
+        pass show $key_file_name | cclip
+    else
+        echofmt "{red} ERROR: File does not exist: $key_file."
+    fi
+}
+
 function ssh_load_pass_keys()
 {
     eval "$(ssh-agent -s)"
