@@ -20,7 +20,7 @@ function git_config_global_aliases()
 {
     git config --global alias.logt "log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
     git config --global alias.sclean "submodule foreach --recursive git clean -dffx" # https://gist.github.com/nicktoumpelis/11214362
-    git config --global alias.supdate "submodule update --init --recursive"
+    git config --global alias.supdate "submodule update --init --recursive --remote"
     git config --global alias.toplevel-dir "rev-parse --show-toplevel"
     echo -e "\ngitconfig file:"
     git config --list
