@@ -85,3 +85,19 @@ function cpu_core_count
 	echo $count
 }
 export -f cpu_core_count
+
+if env_is_msys
+then
+	function cclip()
+	{
+		clip $*
+	}
+	export -f cclip
+elif env_is_ubuntu
+then
+	function cclip()
+	{
+		xclip -selection c $*
+	}
+	export -f cclip
+fi
