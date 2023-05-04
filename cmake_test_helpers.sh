@@ -15,7 +15,9 @@ function cmake_test_build
 	&& command cmake -S $source_dir -B $build_dir \
 	&& command cmake --build $build_dir -j$core_count \
 	&& command ls -1 $build_dir
+	local return_val=$?
 	trace_function_end
+	return $return_val
 }
 export -f cmake_test_build
 
@@ -34,7 +36,9 @@ function cmake_test_full_build
 	&& command cmake -D${pname}_BUILD_TESTS=On -D${pname}_BUILD_EXAMPLES=On -S $source_dir -B $build_dir \
 	&& command cmake --build $build_dir -j$core_count \
 	&& command ls -1 $build_dir
+	local return_val=$?
 	trace_function_end
+	return $return_val
 }
 export -f cmake_test_full_build
 
@@ -56,7 +60,9 @@ function cmake_test_install
 	&& echo "* Installing in $install_dir" \
 	&& command cmake --install $build_dir --prefix $install_dir \
 	&& command tree -ifF -I 'build' $install_dir/
+	local return_val=$?
 	trace_function_end
+	return $return_val
 }
 export -f cmake_test_install
 
@@ -85,6 +91,8 @@ function cmake_test_full_install
 		command cmake -S $source_dir/example/basic_cmake_project -B $build_dir \
 		&& command cmake --build $build_dir -j$core_count
 	fi
+	local return_val=$?
 	trace_function_end
+	return $return_val
 }
 export -f cmake_test_full_install
