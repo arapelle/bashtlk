@@ -4,21 +4,25 @@ function env_is_mingw
 {
 	[[ -n "${MINGW_CHOST}" ]]
 }
+export -f env_is_mingw
 
 function env_is_msys
 {
 	[[ "${OSTYPE}" == "msys" ]]
 }
+export -f env_is_msys
 
 function env_is_ubuntu
 {
 	[[ "${PLATFORM}" == "ubuntu" ]]
 }
+export -f env_is_ubuntu
 
 function env_is_windows
 {
 	[[ $WINDIR =~ windows ]]
 }
+export -f env_is_windows
 
 function script_dir
 {
