@@ -84,7 +84,14 @@ export -f tocsin
 
 function cpu_core_count
 {
-	count=`lscpu | grep "Core.* per socket" | cut -d':' -f2`
+	local count=0
+	if env_is_windows
+	then
+		# https://stackoverflow.com/questions/2619198/how-to-get-number-of-cores-in-win32
+		count=`WMIC CPU Get /Format:List | grep "NumberOfCores" | cut -d'=' -f2`
+	else
+		count=`lscpu | grep "Core.* per socket" | cut -d':' -f2`
+	fi
 	count=$((count))
 	echo $count
 }
