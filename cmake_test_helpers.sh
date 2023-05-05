@@ -81,17 +81,23 @@ function cmake_test_full_install
 	echo "* Building in $build_dir" \
 	&& command cmake -DBUILD_${pname}_TESTS=On -DBUILD_${pname}_EXAMPLES=On -D${pname}_BUILD_TESTS=On -D${pname}_BUILD_EXAMPLES=On -S $source_dir -B $build_dir \
 	&& command cmake --build $build_dir -j$core_count \
+	&& command ctest --progress --test-dir $build_dir \
 	&& echo "* Installing in $install_dir" \
 	&& command cmake --install $build_dir --prefix $install_dir \
 	&& command tree -ifF -I 'build' $install_dir/
-	if (( $? == 0 )) && [[ -d $source_dir/example/basic_cmake_project ]]
+	local return_val=$?
+	if (( $return_val != 0 ))
+	then 
+		return $return_val
+	fi
+	if [[ -d $source_dir/example/basic_cmake_project ]]
 	then
 		echo "* Building $pname basic_cmake_project"
 		build_dir=${build_dir}/basic_cmake_project
 		command cmake -S $source_dir/example/basic_cmake_project -B $build_dir \
 		&& command cmake --build $build_dir -j$core_count
+		return_val=$?
 	fi
-	local return_val=$?
 	trace_function_end
 	return $return_val
 }
