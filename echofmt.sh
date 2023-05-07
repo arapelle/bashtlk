@@ -6,29 +6,29 @@
 #----------------
 # ECHOFMT_COLORS:
 #----------------
-declare -A ECHOFMT_COLORS
-ECHOFMT_COLORS[black]="$(tput setaf 0)"
-ECHOFMT_COLORS[red]="$(tput setaf 1)"
-ECHOFMT_COLORS[green]="$(tput setaf 2)"
-ECHOFMT_COLORS[yellow]="$(tput setaf 3)"
-ECHOFMT_COLORS[blue]="$(tput setaf 4)"
-ECHOFMT_COLORS[magenta]="$(tput setaf 5)"
-ECHOFMT_COLORS[cyan]="$(tput setaf 6)"
-ECHOFMT_COLORS[grey]="$(tput setaf 7)"
+# declare -A ECHOFMT_COLORS
+export ECHOFMT_COLORS_black="$(tput setaf 0)"
+export ECHOFMT_COLORS_red="$(tput setaf 1)"
+export ECHOFMT_COLORS_green="$(tput setaf 2)"
+export ECHOFMT_COLORS_yellow="$(tput setaf 3)"
+export ECHOFMT_COLORS_blue="$(tput setaf 4)"
+export ECHOFMT_COLORS_magenta="$(tput setaf 5)"
+export ECHOFMT_COLORS_cyan="$(tput setaf 6)"
+export ECHOFMT_COLORS_grey="$(tput setaf 7)"
 #----------------
-ECHOFMT_COLORS[BLACK]="$(tput setab 0)"
-ECHOFMT_COLORS[RED]="$(tput setab 1)"
-ECHOFMT_COLORS[GREEN]="$(tput setab 2)"
-ECHOFMT_COLORS[YELLOW]="$(tput setab 3)"
-ECHOFMT_COLORS[BLUE]="$(tput setab 4)"
-ECHOFMT_COLORS[MAGENTA]="$(tput setab 5)"
-ECHOFMT_COLORS[CYAN]="$(tput setab 6)"
-ECHOFMT_COLORS[GREY]="$(tput setab 7)"
+export ECHOFMT_COLORS_BLACK="$(tput setab 0)"
+export ECHOFMT_COLORS_RED="$(tput setab 1)"
+export ECHOFMT_COLORS_GREEN="$(tput setab 2)"
+export ECHOFMT_COLORS_YELLOW="$(tput setab 3)"
+export ECHOFMT_COLORS_BLUE="$(tput setab 4)"
+export ECHOFMT_COLORS_MAGENTA="$(tput setab 5)"
+export ECHOFMT_COLORS_CYAN="$(tput setab 6)"
+export ECHOFMT_COLORS_GREY="$(tput setab 7)"
 #----------------
-ECHOFMT_COLORS[bold]="$(tput bold)"
-ECHOFMT_COLORS[underline]="$(tput sgr 0 1)"
-ECHOFMT_COLORS[reset]="$(tput sgr0)"
-export ECHOFMT_COLORS
+export ECHOFMT_COLORS_bold="$(tput bold)"
+export ECHOFMT_COLORS_underline="$(tput sgr 0 1)"
+export ECHOFMT_COLORS_reset="$(tput sgr0)"
+# export ECHOFMT_COLORS
 #----------------
 
 function echofmt_str
@@ -39,7 +39,8 @@ function echofmt_str
 	do
 		local chp=${BASH_REMATCH[1]}
 		local color_id=${BASH_REMATCH[2]}
-		local color=${ECHOFMT_COLORS[${color_id}]}
+		local color_var_name=ECHOFMT_COLORS_${color_id}
+		local color=${!color_var_name}
 		pattern=${pattern//${chp}\{${color_id}\}/${chp}${color}}
 	done
 	pattern=${pattern//\\\{/\{}
