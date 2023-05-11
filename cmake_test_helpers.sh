@@ -78,8 +78,8 @@ function cmake_test_full_install
 	local build_dir=/tmp/local/build/${pname}
 	local install_dir=/tmp/local
 	core_count=`cpu_core_count`
-	echo "* Building in $build_dir" \
-	&& command cmake -DBUILD_${pname}_TESTS=On -DBUILD_${pname}_EXAMPLES=On -D${pname}_BUILD_TESTS=On -D${pname}_BUILD_EXAMPLES=On -S $source_dir -B $build_dir \
+	export CMAKE_PREFIX_PATH=/tmp/local
+	command cmake -DBUILD_${pname}_TESTS=On -DBUILD_${pname}_EXAMPLES=On -D${pname}_BUILD_TESTS=On -D${pname}_BUILD_EXAMPLES=On -S $source_dir -B $build_dir \
 	&& command cmake --build $build_dir -j$core_count \
 	&& command ctest --progress --test-dir $build_dir \
 	&& echo "* Installing in $install_dir" \
