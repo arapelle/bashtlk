@@ -11,8 +11,7 @@ function cmake_test_build
 	local pname=${source_dir##*/}
 	local build_dir=/tmp/local/build/${pname}
 	core_count=`cpu_core_count`
-	echo "* Building in $build_dir" \
-	&& command cmake -S $source_dir -B $build_dir \
+	command cmake -S $source_dir -B $build_dir \
 	&& command cmake --build $build_dir -j$core_count \
 	&& command ls -1 $build_dir
 	local return_val=$?
@@ -32,8 +31,7 @@ function cmake_test_full_build
 	local pname=${source_dir##*/}
 	local build_dir=/tmp/local/build/${pname}
 	core_count=`cpu_core_count`
-	echo "* Building in $build_dir" \
-	&& command cmake -DBUILD_${pname}_TESTS=On -DBUILD_${pname}_EXAMPLES=On -D${pname}_BUILD_TESTS=On -D${pname}_BUILD_EXAMPLES=On -S $source_dir -B $build_dir \
+	command cmake -DBUILD_${pname}_TESTS=On -DBUILD_${pname}_EXAMPLES=On -D${pname}_BUILD_TESTS=On -D${pname}_BUILD_EXAMPLES=On -S $source_dir -B $build_dir \
 	&& command cmake --build $build_dir -j$core_count \
 	&& command ls -1 $build_dir \
 	&& command ctest --progress --test-dir $build_dir
@@ -55,10 +53,8 @@ function cmake_test_install
 	local build_dir=/tmp/local/build/${pname}
 	local install_dir=/tmp/local
 	core_count=`cpu_core_count`
-	echo "* Building in $build_dir" \
-	&& command cmake -S $source_dir -B $build_dir \
+	command cmake -S $source_dir -B $build_dir \
 	&& command cmake --build $build_dir -j$core_count \
-	&& echo "* Installing in $install_dir" \
 	&& command cmake --install $build_dir --prefix $install_dir \
 	&& command tree -ifF -I 'build' $install_dir/
 	local return_val=$?
@@ -83,7 +79,6 @@ function cmake_test_full_install
 	command cmake -DBUILD_${pname}_TESTS=On -DBUILD_${pname}_EXAMPLES=On -D${pname}_BUILD_TESTS=On -D${pname}_BUILD_EXAMPLES=On -S $source_dir -B $build_dir \
 	&& command cmake --build $build_dir -j$core_count \
 	&& command ctest --progress --test-dir $build_dir \
-	&& echo "* Installing in $install_dir" \
 	&& command cmake --install $build_dir --prefix $install_dir \
 	&& command tree -ifF -I 'build' $install_dir/
 	local return_val=$?
@@ -93,7 +88,6 @@ function cmake_test_full_install
 	fi
 	if [[ -d $source_dir/example/basic_cmake_project ]]
 	then
-		echo "* Building $pname basic_cmake_project"
 		build_dir=${build_dir}/basic_cmake_project
 		command cmake -S $source_dir/example/basic_cmake_project -B $build_dir \
 		&& command cmake --build $build_dir -j$core_count
