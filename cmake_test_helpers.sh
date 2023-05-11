@@ -33,9 +33,10 @@ function cmake_test_full_build
 	local build_dir=/tmp/local/build/${pname}
 	core_count=`cpu_core_count`
 	echo "* Building in $build_dir" \
-	&& command cmake -D${pname}_BUILD_TESTS=On -D${pname}_BUILD_EXAMPLES=On -S $source_dir -B $build_dir \
+	&& command cmake -DBUILD_${pname}_TESTS=On -DBUILD_${pname}_EXAMPLES=On -D${pname}_BUILD_TESTS=On -D${pname}_BUILD_EXAMPLES=On -S $source_dir -B $build_dir \
 	&& command cmake --build $build_dir -j$core_count \
-	&& command ls -1 $build_dir
+	&& command ls -1 $build_dir \
+	&& command ctest --progress --test-dir $build_dir
 	local return_val=$?
 	trace_function_end
 	return $return_val
