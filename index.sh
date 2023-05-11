@@ -1,6 +1,7 @@
 #!/bin/bash
 
 files="
+bash_source_helpers.sh
 core.sh
 echofmt.sh
 trace.sh
@@ -14,6 +15,7 @@ bashgen.sh
 aliases.sh
 "
 
+# https://stackoverflow.com/questions/59895/how-do-i-get-the-directory-where-a-bash-script-is-located-from-within-the-script
 this_script_dir=$(realpath $( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd ))
 for file in $files
 do
