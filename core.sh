@@ -24,13 +24,21 @@ function env_is_windows
 }
 export -f env_is_windows
 
-function script_dir
+function playsound
 {
-	# https://stackoverflow.com/questions/59895/how-do-i-get-the-directory-where-a-bash-script-is-located-from-within-the-script
-	echo $(realpath $( cd -- "$( dirname -- "${BASH_SOURCE[1]}" )" &> /dev/null && pwd ))
+	if env_is_windows
+	then
+		python -c "
+from playsound import playsound
+playsound('$1')
+"
+	else
+		aplay -q $1
+	fi
 }
-export -f script_dir
+export -f playsound
 
+export bell_wav_path="$(bash_source_dir)/rsc/sounds/bell.wav"
 function bell
 {
 	local background=false
@@ -45,18 +53,18 @@ function bell
 	done
 	shift $((OPTIND-1))
 
-	# /udata/Documents/ubuntu_install/finished.wav
-	local sound_path=/udata/.env/sounds/bell.wav
-	# if $background
-	# then
-	# 	(aplay -q $sound_path &)
-	# else
-	# 	aplay -q $sound_path
-	# fi
+	local sound_path=$bell_wav_path
+	if $background
+	then
+		(playsound $sound_path &)
+	else
+		playsound $sound_path
+	fi
 	return 0
 }
 export -f bell
 
+export tocsin_wav_path="$(bash_source_dir)/rsc/sounds/tocsin.wav"
 function tocsin
 {
 	local background=false
@@ -71,13 +79,13 @@ function tocsin
 	done
 	shift $((OPTIND-1))
 
-	local sound_path=/udata/.env/sounds/tocsin.wav
-	# if $background
-	# then
-	# 	(aplay -q $sound_path &)
-	# else
-	# 	aplay -q $sound_path
-	# fi
+	local sound_path=$tocsin_wav_path
+	if $background
+	then
+		(playsound $sound_path &)
+	else
+		playsound $sound_path
+	fi
 	return 0
 }
 export -f tocsin
