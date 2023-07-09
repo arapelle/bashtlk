@@ -24,18 +24,26 @@ function env_is_windows
 }
 export -f env_is_windows
 
-function playsound
-{
-	if env_is_windows
-	then
+if env_is_windows
+then
+	function playsound
+	{
+		local sound_path="$1"
+		if env_is_msys
+		then
+			sound_path="$(cygpath -w $sound_path | sed 's/\\/\\\\/g')"
+		fi
 		python -c "
 from playsound import playsound
-playsound('$1')
+playsound('$sound_path')
 "
-	else
+	}
+else
+	function playsound
+	{
 		aplay -q $1
-	fi
-}
+	}
+fi
 export -f playsound
 
 export bell_wav_path="$(bash_source_dir)/rsc/sounds/bell.wav"

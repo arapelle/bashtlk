@@ -4,7 +4,7 @@ function bashgen_script()
 {
   script_path="$1"
   script_dir=$(parentdir $script_path)
-  mkdir -p script_dir
+  mkdir -p $script_dir
   ext=$(fileext $script_path)
   if [ "$ext" != "sh" ]
   then
