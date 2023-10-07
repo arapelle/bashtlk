@@ -1,3 +1,3 @@
 ## bashtlk
 
-Version: <!--bashtlk-version-->0.1.1<!--/bashtlk-version-->
+Version: <!--bashtlk-version-->0.2<!--/bashtlk-version-->
