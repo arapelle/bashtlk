@@ -128,3 +128,15 @@ then
 	}
 	export -f cclip
 fi
+
+function date_ymd()
+{
+	date +%Y%m%d
+}
+export -f date_ymd
+
+function date_ymd_hms()
+{
+	date +%Y%m%d_%H%M%S
+}
+export -f date_ymd_hms
