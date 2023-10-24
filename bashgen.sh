@@ -2,6 +2,8 @@
 
 function bashgen_script()
 {
+  (( $# == 0 )) && echofmt "{red}ERROR: Right call: bashgen_script script[.sh]" && return 1
+
   script_path="$1"
   script_dir=$(parentdir $script_path)
   mkdir -p $script_dir
