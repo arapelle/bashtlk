@@ -7,6 +7,7 @@ echofmt.sh
 trace.sh
 command.sh
 path.sh
+cmakegen.sh
 cmake_test_helpers.sh
 pass.sh
 git.sh
