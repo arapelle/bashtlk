@@ -1,26 +1,31 @@
 #!/bin/bash
 
+export BASHTLK_MINGW_CHOST_=${MINGW_CHOST}
+export BASHTLK_OSTYPE_=${OSTYPE}
+export BASHTLK_PLATFORM_=${PLATFORM}
+export BASHTLK_WINDIR_=${WINDIR}
+
 function env_is_mingw
 {
-	[[ -n "${MINGW_CHOST}" ]]
+	[[ -n "${BASHTLK_MINGW_CHOST_}" ]]
 }
 export -f env_is_mingw
 
 function env_is_msys
 {
-	[[ "${OSTYPE}" == "msys" ]]
+	[[ "${BASHTLK_OSTYPE_}" == "msys" ]]
 }
 export -f env_is_msys
 
 function env_is_ubuntu
 {
-	[[ "${PLATFORM}" == "ubuntu" ]]
+	[[ "${BASHTLK_PLATFORM_}" == "ubuntu" ]]
 }
 export -f env_is_ubuntu
 
 function env_is_windows
 {
-	[[ $WINDIR =~ windows ]]
+	[[ ${BASHTLK_WINDIR_} =~ windows ]]
 }
 export -f env_is_windows
 
