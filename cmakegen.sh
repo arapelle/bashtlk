@@ -7,11 +7,8 @@ function cmakegen_uninstall_script()
     local install_manifest_path="$1"
     [[ ! -f $install_manifest_path ]] && echofmt "{red}ERROR: Bad path to install_manifest.txt: $install_manifest_path" && return 1
 
-    local install_manifest_dir=`parentdir $install_manifest_path`
-    local install_prefix=`grep "CMAKE_INSTALL_PREFIX:PATH=" $install_manifest_dir/CMakeCache.txt | cut -d'=' -f2`
-    local package_name=`grep "cmake_package_name:INTERNAL=" $install_manifest_dir/CMakeCache.txt | cut -d'=' -f2`
-    local output_dir="$install_prefix/lib/cmake/$package_name"
-
+    local installed_file=`grep -n ".*\.cmake" install_manifest.txt | tail -1 | cut -d':' -f2`
+    local output_dir=`parentdir $installed_file`
     [[ ! -d $output_dir ]] && echofmt "{red}ERROR: Bad path to pagkage install dir: $output_dir" && return 1
 
     local output_file="$output_dir/uninstall.cmake"
