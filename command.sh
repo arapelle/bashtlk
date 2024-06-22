@@ -18,3 +18,11 @@ function command
     return $?
 }
 export -f command
+
+export SUBCOMMAND_DEFAULT_FORMAT="{bold}{blue}>> {*}"
+function subcommand
+{
+    commandf "${SUBCOMMAND_DEFAULT_FORMAT}" "$*"
+    return $?
+}
+export -f subcommand
