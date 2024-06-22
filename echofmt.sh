@@ -35,7 +35,7 @@ function echofmt_str
 {
 	local pattern="${*}{reset}"
 
-	while [[ $pattern =~ (^|[^\\])\{([a-zA-Z0-9_]+)\} ]]
+	while [[ $pattern =~ (^|[^\\])\{(black|red|green|yellow|blue|magenta|cyan|grey|BLACK|RED|GREEN|YELLOW|BLUE|MAGENTA|CYAN|GREY|bold|underline|reset)\} ]]
 	do
 		local chp=${BASH_REMATCH[1]}
 		local color_id=${BASH_REMATCH[2]}
@@ -50,7 +50,18 @@ function echofmt_str
 
 function echofmt
 {
-	local pattern=$(echofmt_str "$*")
+	local pattern="${*}{reset}"
+
+	while [[ $pattern =~ (^|[^\\])\{(black|red|green|yellow|blue|magenta|cyan|grey|BLACK|RED|GREEN|YELLOW|BLUE|MAGENTA|CYAN|GREY|bold|underline|reset)\} ]]
+	do
+		local chp=${BASH_REMATCH[1]}
+		local color_id=${BASH_REMATCH[2]}
+		local color_var_name=ECHOFMT_COLORS_${color_id}
+		local color=${!color_var_name}
+		pattern=${pattern//${chp}\{${color_id}\}/${chp}${color}}
+	done
+	pattern=${pattern//\\\{/\{}
+	pattern=${pattern//\\\}/\}}
 	echo -e "$pattern"
 }
 
