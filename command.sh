@@ -4,18 +4,17 @@ function commandf
 {
 	local format=$1
 	shift
-	echofmt "${format}${COMMANDF_PREFIX}$*${COMMANDF_SUFFIX}"
+	format=${format//\{\*\}/$*}
+	echofmt $format
 	$*
 	return $?
 }
-export COMMANDF_PREFIX="> "
-export COMMANDF_SUFFIX=""
-export COMMANDF_DEFAULT="{bold}{green}"
 export -f commandf
 
+export COMMAND_DEFAULT_FORMAT="{bold}{green}> {*}"
 function command
 {
-    commandf ${COMMANDF_DEFAULT} "$*"
+    commandf "${COMMAND_DEFAULT_FORMAT}" "$*"
     return $?
 }
 export -f command
