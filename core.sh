@@ -34,13 +34,16 @@ then
 	function playsound
 	{
 		local sound_path="$1"
-		if env_is_msys
+		if env_is_mingw
 		then
 			sound_path="$(cygpath -w $sound_path | sed 's/\\/\\\\/g')"
 		fi
 		python -c "
-from playsound import playsound
-playsound('$sound_path')
+import simpleaudio as sa
+
+wave_obj = sa.WaveObject.from_wave_file(\"$sound_path\")
+play_obj = wave_obj.play()
+play_obj.wait_done()
 "
 	}
 else
