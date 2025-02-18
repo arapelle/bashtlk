@@ -13,7 +13,7 @@ export -f env_is_mingw
 
 function env_is_msys
 {
-	[[ "${BASHTLK_OSTYPE_}" == "msys" ]]
+	[[ -n ${MSYS2_PATH+defined} ]]
 }
 export -f env_is_msys
 
