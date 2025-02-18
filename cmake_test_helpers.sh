@@ -73,10 +73,12 @@ function cmake_test_full_build
 		source_dir="$1"
 	fi
 	local pname=${source_dir##*/}
+	local pvname=${pname^^}
+	pvname=${pvname//-/_}
 	local build_dir=/tmp/local/build/${pname}
 	[ $rm_dirs = true ] && command rm -rf $build_dir
 	core_count=`cpu_core_count`
-	command cmake -DBUILD_${pname}_TESTS=On -DBUILD_${pname}_EXAMPLES=On -D${pname}_BUILD_TESTS=On -D${pname}_BUILD_EXAMPLES=On -S $source_dir -B $build_dir \
+	command cmake -DBUILD_${pvname}_TESTS=On -DBUILD_${pvname}_EXAMPLES=On -D${pvname}_BUILD_TESTS=On -D${pvname}_BUILD_EXAMPLES=On -S $source_dir -B $build_dir \
 	&& command cmake --build $build_dir -j$core_count \
 	&& command ls -1 $build_dir \
 	&& command ctest --progress --output-on-failure --test-dir $build_dir
@@ -162,12 +164,14 @@ function cmake_test_full_install
 		source_dir="$1"
 	fi
 	local pname=${source_dir##*/}
+	local pvname=${pname^^}
+	pvname=${pvname//-/_}
 	local build_dir=/tmp/local/build/${pname}
 	local install_dir=/tmp/local
 	[ $rm_dirs = true ] && command rm -rf $build_dir $install_dir
 	core_count=`cpu_core_count`
 	export CMAKE_PREFIX_PATH=/tmp/local
-	command cmake -DBUILD_${pname}_TESTS=On -DBUILD_${pname}_EXAMPLES=On -D${pname}_BUILD_TESTS=On -D${pname}_BUILD_EXAMPLES=On -S $source_dir -B $build_dir \
+	command cmake -DBUILD_${pvname}_TESTS=On -DBUILD_${pvname}_EXAMPLES=On -D${pvname}_BUILD_TESTS=On -D${pvname}_BUILD_EXAMPLES=On -S $source_dir -B $build_dir \
 	&& command cmake --build $build_dir -j$core_count \
 	&& command ctest --progress --output-on-failure --test-dir $build_dir \
 	&& command cmake --install $build_dir --prefix $install_dir \
@@ -179,6 +183,12 @@ function cmake_test_full_install
 		then
 			build_dir=${build_dir}/basic_cmake_project
 			command cmake -S $source_dir/example/basic_cmake_project -B $build_dir \
+			&& command cmake --build $build_dir -j$core_count
+			return_val=$?
+		elif [[ -d $source_dir/test_package ]]
+		then
+			build_dir=${build_dir}/test_package
+			command cmake -S $source_dir/test_package -B $build_dir \
 			&& command cmake --build $build_dir -j$core_count
 			return_val=$?
 		fi
