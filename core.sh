@@ -54,6 +54,32 @@ else
 fi
 export -f playsound
 
+export ding_wav_path="$(bash_source_dir)/rsc/sounds/ding.wav"
+function ding
+{
+	local background=false
+
+	local OPTIND
+	while getopts "b" opt;
+	do
+		case $opt in
+			b) background=true;;
+		  	?) echo "ERROR: Unknown option.";;
+		esac
+	done
+	shift $((OPTIND-1))
+
+	local sound_path=$ding_wav_path
+	if $background
+	then
+		(playsound $sound_path &)
+	else
+		playsound $sound_path
+	fi
+	return 0
+}
+export -f ding
+
 export bell_wav_path="$(bash_source_dir)/rsc/sounds/bell.wav"
 function bell
 {
