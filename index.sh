@@ -11,6 +11,7 @@ cmakegen.sh
 cmake_test_helpers.sh
 pass.sh
 git.sh
+clang_tools.sh
 ssh.sh
 python.sh
 bashgen.sh
