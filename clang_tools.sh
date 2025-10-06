@@ -8,7 +8,7 @@ function clang-format-project
     return 1
   fi
 
-  for dir_to_format in include source src test tests test_package example examples
+  for dir_to_format in include source src test tests test_package example examples component
   do
     if [[ -d $dir_to_format ]]
     then
