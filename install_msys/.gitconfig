@@ -1,0 +1,36 @@
+[user]
+	name = Aymeric Pellé
+	mail = foo@mail.com
+	email = foo@mail.com
+[color]
+	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+[core]
+	editor = micro
+[alias]
+	logt = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+	logtdetails = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+	checkcpplines = grep -n '.\\{120,\\}' *.[hc]pp
+	sclean = submodule foreach --recursive git clean -dffx
+	supdate = submodule update --init --recursive --remote
+	toplevel-dir = rev-parse --show-toplevel
+[push]
+	default = simple
+[merge]
+	tool = diffuse
+[mergetool "diffuse"]
+	trustExitCode = false
+	cmd = diffuse "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+[mergetool]
+	keepBackup = false
+[diff]
+	tool = diffuse
+	cmd = diffuse "$LOCAL" "$REMOTE"
+[difftool "diffuse"]
+	cmd = diffuse "$LOCAL" "$REMOTE"
+[tag]
+	forceSignAnnotated = false
+[init]
+	defaultBranch = main
